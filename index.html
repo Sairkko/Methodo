@@ -8,7 +8,10 @@
 <body>
 
 <div id="map"></div>
+<input type="text" id="searchInput" placeholder="Entrez une localisation, ex: Lyon 3">
+<button onclick="searchParking()">Rechercher les parkings</button>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoEQDiqSAvbFhs5RRxGLQlCt9Y0cBeqPc&callback=initMap"></script>
 <script src="app.js"></script>
 </body>
