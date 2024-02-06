@@ -29,31 +29,31 @@ function initMap() {
     }
 
 
-function searchParking() {
-    let searchText = document.getElementById('searchInput').value;
-    let apiUrl = `URL_DE_LAPI?recherche=${encodeURIComponent(searchText)}`;
+    function searchParking() {
+        let searchText = document.getElementById('searchInput').value;
+        let apiUrl = `URL_DE_LAPI?recherche=${encodeURIComponent(searchText)}`;
 
-    axios.get(apiUrl)
-        .then(function(response) {
-            // Reponse doit etre de la forme :
-            // 0 {
-            //      id:
-            //      lat :
-            //      long:
-            // }
-            response.data.forEach(parking => {
-                var position = {lat: parking.lat, lng: parking.long};
-                new google.maps.Marker({
-                    position: position,
-                    map: window.map,
-                    title: `Parking ID: ${parking.id}`
+        axios.get(apiUrl)
+            .then(function(response) {
+                // Reponse doit etre de la forme :
+                // 0 {
+                //      id:
+                //      lat :
+                //      long:
+                // }
+                response.data.forEach(parking => {
+                    var position = {lat: parking.lat, lng: parking.long};
+                    new google.maps.Marker({
+                        position: position,
+                        map: window.map,
+                        title: `Parking ID: ${parking.id}`
+                    });
                 });
+            })
+            .catch(function(error) {
+                console.log('Erreur lors de la récupération des données:', error);
             });
-        })
-        .catch(function(error) {
-            console.log('Erreur lors de la récupération des données:', error);
-        });
-}
+    }
     // Fonction de rappel en cas d'échec de la géolocalisation.
     function handleLocationError(error) {
         console.warn(`ERROR(${error.code}): ${error.message}`);
@@ -112,20 +112,42 @@ const parkings = [
     },
 ];
 
+// Générer 10 places libres aléatoirement autour de Lyon 3
+const freeSpots = [];
+for (let i = 0; i < 10; i++) {
+    freeSpots.push({
+        lat: 45.748 + (Math.random() * (45.752 - 45.748)), // Générer un nombre aléatoire entre 45.748 et 45.752
+        lng: 4.846 + (Math.random() * (4.850 - 4.846)), // Générer un nombre aléatoire entre 4.846 et 4.850
+        name: `Place Libre ${i + 1}`,
+        address: `Adresse de la place libre ${i + 1}`,
+        availableSpots: 1, // Par défaut, une place libre représente 1 place disponible
+        hours: "24/7", // Supposons que les places libres sont disponibles 24/7
+        type: 'freeSpot' // Type ajouté pour distinguer les places libres
+    });
+}
+
+// Fusionner les deux tableaux
+const allSpots = parkings.concat(freeSpots);
+
 function addParkingMarkers(map) {
-    parkings.forEach(function(parking) {
+    allSpots.forEach(function(spot) {
+        // Choisir l'icône en fonction du type de l'emplacement
+        const iconUrl = spot.type === 'freeSpot'
+            ? 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png'
+            : 'https://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+
         let marker = new google.maps.Marker({
-            position: {lat: parking.lat, lng: parking.lng},
+            position: {lat: spot.lat, lng: spot.lng},
             map: map,
-            title: parking.name,
-            icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' // URL de l'icône du marqueur
+            title: spot.name,
+            icon: iconUrl // Utiliser l'URL de l'icône en fonction du type
         });
 
         let infoWindowContent = `
-            <h3>${parking.name}</h3>
-            <p>${parking.address}</p>
-            <p>Places disponibles: ${parking.availableSpots}</p>
-            <p>Horaires: ${parking.hours}</p>
+            <h3>${spot.name}</h3>
+            <p>${spot.address}</p>
+            <p>Places disponibles: ${spot.availableSpots}</p>
+            <p>Horaires: ${spot.hours}</p>
         `;
 
         let infoWindow = new google.maps.InfoWindow({
