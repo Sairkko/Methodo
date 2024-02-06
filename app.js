@@ -40,6 +40,8 @@ function searchParking() {
             //      id:
             //      lat :
             //      long:
+            //      horaire:
+            //      place_dispo
             // }
             response.data.forEach(parking => {
                 var position = {lat: parking.lat, lng: parking.long};
@@ -47,6 +49,9 @@ function searchParking() {
                     position: position,
                     map: window.map,
                     title: `Parking ID: ${parking.id}`
+                });
+                new google.maps.InfoWindow({
+                    content: `<h3>${parking.name}</h3><p>${parking.horaire}</p><p>${parking.place_dispo}</p>`
                 });
             });
         })
