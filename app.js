@@ -70,8 +70,46 @@ function searchParking() {
 }
 
 const parkings = [
-    {lat: 45.748, lng: 4.846, name: "Parking Lyon 3 - 1", address: "Adresse du Parking Lyon 3 - 1"},
-    {lat: 45.749, lng: 4.849, name: "Parking Lyon 3 - 2", address: "Adresse du Parking Lyon 3 - 2"},
+    {
+        lat: 45.748,
+        lng: 4.846,
+        name: "Parking Lyon 3 - 1",
+        address: "Adresse du Parking Lyon 3 - 1",
+        availableSpots: 120,
+        hours: "08:00 - 22:00"
+    },
+    {
+        lat: 45.749,
+        lng: 4.849,
+        name: "Parking Lyon 3 - 2",
+        address: "Adresse du Parking Lyon 3 - 2",
+        availableSpots: 85,
+        hours: "07:00 - 21:00"
+    },
+    {
+        lat: 45.750,
+        lng: 4.847,
+        name: "Parking Lyon 3 - 3",
+        address: "Adresse du Parking Lyon 3 - 3",
+        availableSpots: 75,
+        hours: "06:00 - 20:00"
+    },
+    {
+        lat: 45.751,
+        lng: 4.850,
+        name: "Parking Lyon 3 - 4",
+        address: "Adresse du Parking Lyon 3 - 4",
+        availableSpots: 60,
+        hours: "08:30 - 22:30"
+    },
+    {
+        lat: 45.752,
+        lng: 4.848,
+        name: "Parking Lyon 3 - 5",
+        address: "Adresse du Parking Lyon 3 - 5",
+        availableSpots: 50,
+        hours: "09:00 - 23:00"
+    },
 ];
 
 function addParkingMarkers(map) {
@@ -80,11 +118,18 @@ function addParkingMarkers(map) {
             position: {lat: parking.lat, lng: parking.lng},
             map: map,
             title: parking.name,
-            icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' // URL de l'icône du marqueur vert
+            icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' // URL de l'icône du marqueur
         });
 
+        let infoWindowContent = `
+            <h3>${parking.name}</h3>
+            <p>${parking.address}</p>
+            <p>Places disponibles: ${parking.availableSpots}</p>
+            <p>Horaires: ${parking.hours}</p>
+        `;
+
         let infoWindow = new google.maps.InfoWindow({
-            content: `<h3>${parking.name}</h3><p>${parking.address}</p>`
+            content: infoWindowContent
         });
 
         marker.addListener('click', function() {
