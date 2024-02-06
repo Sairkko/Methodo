@@ -13,6 +13,23 @@ function initMap() {
     // Ajouter les marqueurs des parkings
     addParkingMarkers(map);
 
+    const legend = document.createElement('div');
+    legend.id = 'legend';
+    const content = [];
+    content.push('<h3>Légende</h3>');
+    content.push('<p><img src="https://maps.google.com/mapfiles/ms/icons/purple-dot.png" alt="Places Libres"> Places Libres</p>');
+    content.push('<p><img src="https://maps.google.com/mapfiles/ms/icons/orange-dot.png" alt="Parkings"> Parkings</p>');
+    legend.innerHTML = content.join('');
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+
+    // Style pour la légende (vous pouvez également ajouter ces styles dans votre fichier CSS)
+    legend.style.backgroundColor = 'white';
+    legend.style.padding = '10px';
+    legend.style.margin = '10px';
+    legend.style.fontSize = '14px';
+    legend.style.fontFamily = 'Arial, sans-serif';
+    legend.style.opacity = '1';
+
     // Fonction de rappel en cas de succès de la géolocalisation.
     function handleLocationSuccess(position) {
         let userLocation = {
