@@ -133,8 +133,8 @@ function addParkingMarkers(map) {
     allSpots.forEach(function(spot) {
         // Choisir l'icône en fonction du type de l'emplacement
         const iconUrl = spot.type === 'freeSpot'
-            ? 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png'
-            : 'https://maps.google.com/mapfiles/ms/icons/purple-dot.png';
+            ? 'https://maps.google.com/mapfiles/ms/icons/purple-dot.png'
+            : 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png';
 
         let marker = new google.maps.Marker({
             position: {lat: spot.lat, lng: spot.lng},
