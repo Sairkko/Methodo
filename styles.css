@@ -2,3 +2,11 @@
     height: 500px;
     width: 100%;
 }
+
+.btn-carte {
+    margin: 10px;
+    height: 30px;
+    width: auto;
+    background-color: darkseagreen;
+    border-radius: 5px;
+}
