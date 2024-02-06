@@ -30,8 +30,8 @@ function initMap() {
 
 
 function searchParking() {
-    var searchText = document.getElementById('searchInput').value;
-    var apiUrl = `URL_DE_LAPI?recherche=${encodeURIComponent(searchText)}`;
+    let searchText = document.getElementById('searchInput').value;
+    let apiUrl = `URL_DE_LAPI?recherche=${encodeURIComponent(searchText)}`;
 
     axios.get(apiUrl)
         .then(function(response) {
@@ -73,40 +73,40 @@ const parkings = [
     {
         lat: 45.748,
         lng: 4.846,
-        name: "Parking Lyon 3 - 1",
-        address: "Adresse du Parking Lyon 3 - 1",
+        name: "Parking Lyon 3.1",
+        address: "58 cours albert camus",
         availableSpots: 120,
         hours: "08:00 - 22:00"
     },
     {
         lat: 45.749,
         lng: 4.849,
-        name: "Parking Lyon 3 - 2",
-        address: "Adresse du Parking Lyon 3 - 2",
+        name: "Parking Lyon 3.2",
+        address: "60 cours ablert thomas",
         availableSpots: 85,
         hours: "07:00 - 21:00"
     },
     {
         lat: 45.750,
         lng: 4.847,
-        name: "Parking Lyon 3 - 3",
-        address: "Adresse du Parking Lyon 3 - 3",
+        name: "Parking Lyon 3.3",
+        address: "150 rue de part-dieu",
         availableSpots: 75,
         hours: "06:00 - 20:00"
     },
     {
         lat: 45.751,
         lng: 4.850,
-        name: "Parking Lyon 3 - 4",
-        address: "Adresse du Parking Lyon 3 - 4",
+        name: "Parking Lyon 3.4",
+        address: "10 cours du dauphine",
         availableSpots: 60,
         hours: "08:30 - 22:30"
     },
     {
         lat: 45.752,
         lng: 4.848,
-        name: "Parking Lyon 3 - 5",
-        address: "Adresse du Parking Lyon 3 - 5",
+        name: "Parking Lyon 3.5",
+        address: "5 rue de bellecour",
         availableSpots: 50,
         hours: "09:00 - 23:00"
     },
