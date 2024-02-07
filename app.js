@@ -29,8 +29,6 @@ function initMap() {
     legend.style.fontSize = '14px';
     legend.style.fontFamily = 'Arial, sans-serif';
     legend.style.opacity = '1';
-
-    // Fonction de rappel en cas de succès de la géolocalisation.
     function handleLocationSuccess(position) {
         let userLocation = {
             lat: position.coords.latitude,
@@ -45,59 +43,6 @@ function initMap() {
         });
     }
 
-
-    function searchParking() {
-        let searchText = document.getElementById('searchInput').value;
-        let apiUrl = `URL_DE_LAPI?recherche=${encodeURIComponent(searchText)}`;
-
-        axios.get(apiUrl)
-            .then(function(response) {
-                // Reponse doit etre de la forme :
-                // 0 {
-                //      id:
-                //      lat :
-                //      long:
-                // }
-                response.data.forEach(parking => {
-                    var position = {lat: parking.lat, lng: parking.long};
-                    new google.maps.Marker({
-                        position: position,
-                        map: window.map,
-                        title: `Parking ID: ${parking.id}`
-                    });
-                });
-            })
-            .catch(function(error) {
-                console.log('Erreur lors de la récupération des données:', error);
-            });
-    }
-    axios.get(apiUrl)
-        .then(function(response) {
-            // Reponse doit etre de la forme :
-            // 0 {
-            //      id:
-            //      lat :
-            //      long:
-            //      horaire:
-            //      place_dispo
-            // }
-            response.data.forEach(parking => {
-                var position = {lat: parking.lat, lng: parking.long};
-                new google.maps.Marker({
-                    position: position,
-                    map: window.map,
-                    title: `Parking ID: ${parking.id}`
-                });
-                new google.maps.InfoWindow({
-                    content: `<h3>${parking.name}</h3><p>${parking.horaire}</p><p>${parking.place_dispo}</p>`
-                });
-            });
-        })
-        .catch(function(error) {
-            console.log('Erreur lors de la récupération des données:', error);
-        });
-}
-    // Fonction de rappel en cas d'échec de la géolocalisation.
     function handleLocationError(error) {
         console.warn(`ERROR(${error.code}): ${error.message}`);
         // Vous pouvez gérer les erreurs ici, par exemple en affichant un message à l'utilisateur.
